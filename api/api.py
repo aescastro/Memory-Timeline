@@ -1,5 +1,4 @@
 import time
-import sqlite3
 from flask import g
 from flask import Flask
 

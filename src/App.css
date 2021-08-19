@@ -13,6 +13,14 @@ body {
   border-color: #586BA4;
 }
 
+.image-and-caption {
+  float: left;
+}
+
+.event-text {
+  float: left;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

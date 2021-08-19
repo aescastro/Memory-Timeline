@@ -25,7 +25,7 @@ class TimelineElement extends React.Component {
 
     this.state = {
       title: props.title,
-      image: props.image,
+      img: props.img,
       desc: props.desc,
     }
   }
@@ -40,7 +40,7 @@ class TimelineElement extends React.Component {
         <h3 className="vertical-timeline-element-title">{this.state.title}</h3>
         
         <div className="image-and-caption">
-          <img  src="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" 
+          <img  src={this.state.img}
                 alt="smiley face" id="event-image"></img>
         </div>
 
@@ -60,7 +60,7 @@ class App extends React.Component {
   render() {
     return (
         <VerticalTimeline>
-          <TimelineElement title="test reuse" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"></TimelineElement>
+          <TimelineElement title="test reuse" img="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"></TimelineElement>
           <DummyElement></DummyElement>
           <DummyElement></DummyElement>
           <DummyElement></DummyElement>

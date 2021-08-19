@@ -19,12 +19,48 @@ function DummyElement() {
     );
 }
 
+class TimelineElement extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: props.title,
+      image: props.image,
+      desc: props.desc,
+    }
+  }
+
+  render() {
+    return(
+      <VerticalTimelineElement
+        className="vertical-timeline-element--work"
+        contentArrowStyle={{ borderRight: '7px solid  #fff' }}
+        iconStyle={{ background: '#586BA4', color: '#fff' }}
+      >
+        <h3 className="vertical-timeline-element-title">{this.state.title}</h3>
+        
+        <div className="image-and-caption">
+          <img  src="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" 
+                alt="smiley face" id="event-image"></img>
+        </div>
+
+        <div className="event-text">
+          <p>
+            {this.state.desc}
+          </p>
+        </div>
+
+      </VerticalTimelineElement>
+    );
+  }
+}
+
 class App extends React.Component {
 
   render() {
     return (
         <VerticalTimeline>
-          
+          <TimelineElement title="test reuse" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"></TimelineElement>
           <DummyElement></DummyElement>
           <DummyElement></DummyElement>
           <DummyElement></DummyElement>

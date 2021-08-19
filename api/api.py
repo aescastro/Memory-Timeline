@@ -5,7 +5,7 @@ from flask import Flask
 
 app = Flask(__name__)
     
-# example:
-@app.route('/time')
-def get_current_time():
-    return {'time': time.time()}
+# example of backend connected to frontend
+# @app.route('/time')
+# def get_current_time():
+#     return {'time': time.time()}

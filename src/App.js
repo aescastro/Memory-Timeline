@@ -27,7 +27,9 @@ class TimelineElement extends React.Component {
       title: props.title,
       img: props.img,
       desc: props.desc,
+      visible: true,
     }
+
   }
 
   render() {
@@ -37,11 +39,14 @@ class TimelineElement extends React.Component {
         contentArrowStyle={{ borderRight: '7px solid  #fff' }}
         iconStyle={{ background: '#586BA4', color: '#fff' }}
       >
-        <h3 className="vertical-timeline-element-title">{this.state.title}</h3>
-        
+      
+        <h3 className="vertical-timeline-element-title" style={{paddingBottom: "10px"}}>{this.state.title}</h3>
+         
         <div className="image-and-caption">
           <img  src={this.state.img}
-                alt="smiley face" id="event-image"></img>
+                id="event-image"
+                alt="">
+          </img>
         </div>
 
         <div className="event-text">
@@ -49,7 +54,8 @@ class TimelineElement extends React.Component {
             {this.state.desc}
           </p>
         </div>
-
+        
+        
       </VerticalTimelineElement>
     );
   }
@@ -60,7 +66,11 @@ class App extends React.Component {
   render() {
     return (
         <VerticalTimeline>
-          <TimelineElement title="test reuse" img="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"></TimelineElement>
+          <TimelineElement 
+            title="test reuse" 
+            img="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
+          </TimelineElement>
+          
           <DummyElement></DummyElement>
           <DummyElement></DummyElement>
           <DummyElement></DummyElement>

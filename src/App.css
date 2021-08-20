@@ -10,15 +10,25 @@ body {
 }
 
 .image-and-caption {
-  /* float: left; */
   margin-right: 15px;
   margin-bottom: 15px;
 }
 
-.event-text {
-  position: relative;
-  bottom: 17px;
+.desc-header {
+  font-size: 100% !important;
+  font-weight: bold !important;
+  margin-bottom: 0.3% !important;
+}
+
+.event-info {
   font-family: 'Nunito', sans-serif;
+}
+
+.event-text {
+  font-size: 95% !important;
+  line-height: 130% !important;
+  margin: 0%  !important;
+  font-weight: normal!important;
 }
 
 .vertical-timeline-element-date {

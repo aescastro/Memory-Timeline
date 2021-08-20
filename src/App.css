@@ -9,15 +9,18 @@ body {
   border-color: #586BA4;
 }
 
-.event-text {
-  position: relative;
-  bottom: 20px;
-}
-
 .image-and-caption {
-  float: left;
+  /* float: left; */
   margin-right: 15px;
   margin-bottom: 15px;
 }
 
+.event-text {
+  position: relative;
+  bottom: 17px;
+  font-family: 'Nunito', sans-serif;
+}
 
+.vertical-timeline-element-date {
+  display: none;
+}

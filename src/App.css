@@ -1,12 +1,27 @@
 body {
-  background-color: #F5DD90;
+  background-color: #ECE5F0;
+}
+
+#vertical-timeline-element--work {
+  background-color: #082D0F !important;
 }
 
 #event-image {
   border-style: solid;
   border-radius: 5%;
-  border-width: 3px;
+  border-width: 2px;
   border-color: #586BA4;
+}
+
+.tag {
+  background-color: #59114D;
+  border-color: #59114D;
+  border-width: 0.9px;
+  border-style: solid;
+  padding: 1% 1.5% 1% 1.5%;
+  border-radius: 15%;
+  color: white;
+  font-size: 90%;
 }
 
 .image-and-caption {
@@ -17,20 +32,17 @@ body {
 .desc-header {
   font-size: 100% !important;
   font-weight: bold !important;
-  margin-bottom: 0.3% !important;
 }
 
 .event-info {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Hind', sans-serif;
+  
 }
 
 .event-text {
   font-size: 95% !important;
   line-height: 130% !important;
   margin: 0%  !important;
-  font-weight: normal!important;
+  font-weight: normal !important;
 }
 
-.vertical-timeline-element-date {
-  display: none;
-}

@@ -8,7 +8,8 @@ function DummyElement() {
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
         contentArrowStyle={{ borderRight: '7px solid  #fff' }}
-        iconStyle={{ background: '#586BA4', color: '#fff' }}
+        iconStyle={{ background: '#003B36', color: '#fff' }}
+        contentStyle={{background: "#fff", }}
       >
         <h3 className="vertical-timeline-element-title">Lorem ipsum dolor</h3>
         <h4 className="vertical-timeline-element-subtitle">Consectetur adipiscing </h4>
@@ -19,27 +20,47 @@ function DummyElement() {
     );
 }
 
+function DescriptionElement(props) {
+  if (props.info) {
+    return (
+      <div className="desc-header">{props.title} <span className="event-text">{props.info}</span></div>
+    );
+  }
+  return null;
+}
+
+function TaggedElements(props) {
+  if (props.list) {
+    const tags = props.list.map(x =>
+      <span className="tag" key={x} style={{margin: "0.25%"}}>{x}</span>)
+      return (<div className="desc-header" 
+              style={{margin: "1%"
+               }}> {props.title} {tags} </div>  );
+  }
+  return null;
+}
+
 class TimelineElement extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       title: props.title,
-      date: props.date,
       img: props.img,
+      people: props.people,
+      tags: props.tags,
+      date: props.date,
       desc: props.desc,
     }
-
-    console.log(this.state.date);
-
   }
 
   render() {
     return(
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
-        contentArrowStyle={{ borderRight: '7px solid  #fff' }}
-        iconStyle={{ background: '#586BA4', color: '#fff' }}
+        contentArrowStyle={{ borderRight: '7px solid  #DEE5E5' }}
+        iconStyle={{ background: '#003B36', color: '#fff' }}
+        contentStyle={{background: "#fff", }}
       >
       
         <h3 className="vertical-timeline-element-title" style={{marginBottom: "10px"}}>{this.state.title}</h3>
@@ -56,11 +77,10 @@ class TimelineElement extends React.Component {
         </div>
 
         <div className="event-info">
-          <div className="desc-header"> Date: <span className="event-text">{this.state.date}</span> </div>
-          <div className="desc-header">Description: </div>
-          <p className="event-text">
-            {this.state.desc}
-          </p>
+          <DescriptionElement title="Date:" info={this.state.date}></DescriptionElement>
+          <DescriptionElement title="People:" info={this.state.people}></DescriptionElement>
+          <TaggedElements title="Tags:" list={this.state.tags}></TaggedElements>
+          <DescriptionElement title="Decription:" info={this.state.desc}></DescriptionElement>
         </div>
         
       </VerticalTimelineElement>
@@ -71,11 +91,14 @@ class TimelineElement extends React.Component {
 class App extends React.Component {
 
   render() {
+    var tags = ["food", "vacation"];
+
     return (
         <VerticalTimeline>
           <TimelineElement 
             title="test reuse" 
             date="08/01/2021"
+            tags={tags}
             img="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
           </TimelineElement>
           <TimelineElement 

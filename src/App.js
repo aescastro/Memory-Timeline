@@ -37,9 +37,10 @@ function DescriptionElement(props) {
 
 function TaggedElements(props) {
   if (props.info) {
-    var tags = new Set(props.info)
-    tags = props.info.map(x =>
+    var tags = new Set(props.info);
+    tags = Array.from(tags).map(x =>
       <span className="tag" key={x} style={{backgroundColor: props.color, borderColor: props.color}}>{x}</span>)
+      
       return (<div className="desc-container"> 
                 {props.title} {tags}
               </div>  );

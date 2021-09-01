@@ -23,19 +23,26 @@ function DummyElement() {
 function DescriptionElement(props) {
   if (props.info) {
     return (
-      <div className="desc-header">{props.title} <span className="event-text">{props.info}</span></div>
+      <div className="desc-container">
+        {props.title} 
+        
+        <span className="event-text">
+          {props.info}
+        </span>
+      </div>
     );
   }
   return null;
 }
 
 function TaggedElements(props) {
-  if (props.list) {
-    const tags = props.list.map(x =>
-      <span className="tag" key={x} style={{margin: "0.25%"}}>{x}</span>)
-      return (<div className="desc-header" 
-              style={{margin: "1%"
-               }}> {props.title} {tags} </div>  );
+  if (props.info) {
+    var tags = new Set(props.info)
+    tags = props.info.map(x =>
+      <span className="tag" key={x} style={{backgroundColor: props.color, borderColor: props.color}}>{x}</span>)
+      return (<div className="desc-container"> 
+                {props.title} {tags}
+              </div>  );
   }
   return null;
 }
@@ -58,12 +65,12 @@ class TimelineElement extends React.Component {
     return(
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
-        contentArrowStyle={{ borderRight: '7px solid  #DEE5E5' }}
+        contentArrowStyle={{ borderRight: '7px solid  #fff' }}
         iconStyle={{ background: '#003B36', color: '#fff' }}
-        contentStyle={{background: "#fff", }}
+        contentStyle={{background: "#fff"}}
       >
       
-        <h3 className="vertical-timeline-element-title" style={{marginBottom: "10px"}}>{this.state.title}</h3>
+        <h3 className="vertical-timeline-element-title">{this.state.title}</h3>
          
         <div className="image-and-caption"
                       style={{display: this.state.img === undefined ? 'none' : 'block',
@@ -78,8 +85,8 @@ class TimelineElement extends React.Component {
 
         <div className="event-info">
           <DescriptionElement title="Date:" info={this.state.date}></DescriptionElement>
-          <DescriptionElement title="People:" info={this.state.people}></DescriptionElement>
-          <TaggedElements title="Tags:" list={this.state.tags}></TaggedElements>
+          <TaggedElements title="People:" info={this.state.people} color="59114D"></TaggedElements>
+          <TaggedElements title="Tags:" info={this.state.tags} color="#59114D"></TaggedElements>
           <DescriptionElement title="Decription:" info={this.state.desc}></DescriptionElement>
         </div>
         
@@ -91,7 +98,7 @@ class TimelineElement extends React.Component {
 class App extends React.Component {
 
   render() {
-    var tags = ["food", "vacation"];
+    var tags = ["food", "vacation", "food"];
 
     return (
         <VerticalTimeline>

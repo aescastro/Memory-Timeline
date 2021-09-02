@@ -6,6 +6,11 @@ body {
   margin-bottom: 10px !important;
 }
 
+.image-and-caption {
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
 #event-image {
   border-style: solid;
   border-radius: 5%;
@@ -19,6 +24,14 @@ body {
   margin: 1% 1% 1% 0%;
 }
 
+.event-text {
+  font-size: 95% !important;
+  line-height: 130% !important;
+  margin: 0%  !important;
+  font-weight: normal !important;
+}
+
+
 .tag {
   border-width: 0.9px;
   border-style: solid;
@@ -31,19 +44,8 @@ body {
   display: inline-block;
 }
 
-.image-and-caption {
-  margin-right: 15px;
-  margin-bottom: 15px;
-}
-
 .event-info {
   font-family: 'Hind', sans-serif;
 }
 
-.event-text {
-  font-size: 95% !important;
-  line-height: 130% !important;
-  margin: 0%  !important;
-  font-weight: normal !important;
-}
 

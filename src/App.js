@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 

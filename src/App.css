@@ -1,5 +1,9 @@
 body {
-  background-color: #ECE5F0;
+  background-color: #EBD8D0 !important;
+}
+
+.badge.bg-primary {
+  background-color: #6B9080 !important;
 }
 
 .vertical-timeline-element-title{
@@ -15,13 +19,13 @@ body {
   border-style: solid;
   border-radius: 5%;
   border-width: 2px;
-  border-color: #586BA4;
+  border-color: #000000;
 }
 
 .desc-container {
   font-size: 100% !important;
   font-weight: bold !important;  
-  margin: 1% 1% 1% 0%;
+  margin: 0.125% 0.125% 0.125% 0%;
 }
 
 .event-text {
@@ -36,7 +40,7 @@ body {
   border-width: 0.9px;
   border-style: solid;
   border-radius: 15%;
-  padding: 1% 1.5% 1% 1.5%;
+  padding: 2px 2px 2px 2px;
   color: white;
   font-size: 90%;
   margin-right: 2px;

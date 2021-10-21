@@ -1,0 +1,26 @@
+@import '~carbon-components/scss/globals/scss/styles.scss';
+
+body {
+  background-color: #EBD8D0 !important;
+}
+
+.badge.bg-primary {
+  background-color: #6B9080 !important;
+}
+
+.desc-container {
+  font-size: 100% !important;
+  font-weight: bold !important;  
+}
+
+.event-text {
+  font-size: 95% !important;
+  line-height: 130% !important;
+  font-weight: normal !important;
+}
+
+.event-info {
+  font-family: 'Hind', sans-serif;
+}
+
+

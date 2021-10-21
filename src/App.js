@@ -20,7 +20,6 @@ function DummyElement() {
         <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
         </p>
-        <Overflow></Overflow>
       </VerticalTimelineElement>
       
     );
@@ -63,7 +62,7 @@ function DescriptionElement(props) {
 function TaggedElements(props) {
   if (props.info) {
     var tags = new Set(props.info);
-    tags = Array.from(tags).map(x => <Badge bg="primary" style={{margin: "1px"}}>{x}</Badge>)
+    tags = Array.from(tags).map(x => <Badge bg="primary" key={x} style={{margin: "1px"}}>{x}</Badge>)
       
       return (<div className="desc-container"> 
                 {props.title} {tags}
@@ -95,27 +94,29 @@ class TimelineElement extends React.Component {
         contentStyle={{background: "#fff"}}
       >
 
-        <div className=".container-fluid"> 
+        <div className=".container-fluid">  
           <div className="row">
 
-            <div className="col-sm-11"> 
+            <div className="col-lg-11"> 
               <h3 className="vertical-timeline-element-title">{this.state.title}</h3>
             </div>
 
-            <div className="col-sm-1">
+            <div className="col-lg-1">
               <Overflow></Overflow>
             </div>
           </div>
+        </div> 
 
+        <div className=".container-fluid"> 
           <div className="row"> 
-            <div className={this.state.img === undefined ? "col-sm-0" : "col-sm-6"}
+            <div className={this.state.img === undefined ? "col-lg-0" : "col-lg-6 text-center"}
                           style={{display: this.state.img === undefined ? 'none' : 'block',
                                   float: this.state.img === undefined ? 'none' : 'left'}}
                           >
               <Image  src={this.state.img} alt="" rounded fluid></Image>
             </div>
 
-            <div className={this.state.img === undefined ? "col-sm-12" : "col-sm-6"}>
+            <div className={this.state.img === undefined ? "col-lg-12" : "col-lg-6"}>
               <div className="row"><DescriptionElement title="Date: " info={this.state.date}></DescriptionElement></div> 
               <div className="row"><TaggedElements title="People: " info={this.state.people} color=""></TaggedElements></div>
               <div className="row"><TaggedElements title="Tags: " info={this.state.tags} color="#D3AB9E"></TaggedElements></div>
@@ -123,7 +124,8 @@ class TimelineElement extends React.Component {
             
             </div>
           </div>
-      </div> 
+        </div> 
+     
       </VerticalTimelineElement>
     );
   }

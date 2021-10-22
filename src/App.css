@@ -1,3 +1,4 @@
+
 body {
   background-color: #EBD8D0 !important;
 }
@@ -6,46 +7,15 @@ body {
   background-color: #6B9080 !important;
 }
 
-.vertical-timeline-element-title{
-  margin-bottom: 10px !important;
-}
-
-.image-and-caption {
-  margin-right: 15px;
-  margin-bottom: 15px;
-}
-
-#event-image {
-  border-style: solid;
-  border-radius: 5%;
-  border-width: 2px;
-  border-color: #000000;
-}
-
 .desc-container {
   font-size: 100% !important;
   font-weight: bold !important;  
-  margin: 0.125% 0.125% 0.125% 0%;
 }
 
 .event-text {
   font-size: 95% !important;
   line-height: 130% !important;
-  margin: 0%  !important;
   font-weight: normal !important;
-}
-
-
-.tag {
-  border-width: 0.9px;
-  border-style: solid;
-  border-radius: 15%;
-  padding: 2px 2px 2px 2px;
-  color: white;
-  font-size: 90%;
-  margin-right: 2px;
-  margin-bottom: 2px;
-  display: inline-block;
 }
 
 .event-info {

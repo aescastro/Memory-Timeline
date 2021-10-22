@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'; 
-import './App.scss';
+import './App.css';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import Image from 'react-bootstrap/Image'
+import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge'
+
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import {OverflowMenu, OverflowMenuItem} from 'carbon-components-react';
-import Image from 'react-bootstrap/Image'
+
+
 function DummyElement() {
     return(
       <VerticalTimelineElement
@@ -36,21 +41,19 @@ class Overflow extends React.Component {
   }
 
   render() {
-    return(<OverflowMenu
-      data-floating-menu-container
-      // selectorPrimaryFocus={'.optionOne'}
-    >
-      <OverflowMenuItem
-        itemText={this.state.expand ? "Expand" : "Minimize"}
-      />
-      <OverflowMenuItem
-        itemText={"Edit"}
-        style={{display: this.state.view ? "block" : "none"}}
-      />
+    return( 
+    <Dropdown>
+      <Dropdown.Toggle variant="link" id="dropdown-basic" bsPrefix="p-0">
+        <i class="bi bi-three-dots-vertical"></i>
+      </Dropdown.Toggle>
 
-      <OverflowMenuItem itemText="Delete" isDelete/>
+      <Dropdown.Menu>
+        <Dropdown.Item>Maximize</Dropdown.Item>
+        <Dropdown.Item>Edit</Dropdown.Item>
+        <Dropdown.Item>Delete</Dropdown.Item>
+      </Dropdown.Menu>
 
-    </OverflowMenu>);
+    </Dropdown>);
     }
 }
 

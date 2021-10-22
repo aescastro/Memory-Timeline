@@ -25,23 +25,33 @@ function DummyElement() {
     );
 }
 
-function Overflow() {
-  return(<OverflowMenu
-    data-floating-menu-container
-    // selectorPrimaryFocus={'.optionOne'}
-  >
-    <OverflowMenuItem
-      className="optionOne"
-      itemText="Option 1"
-    />
-    <OverflowMenuItem
-      className="optionTwo"
-      itemText="Option 2 is an example of a really long string and how we recommend handling this"
-      requireTitle
-    />
-    <OverflowMenuItem itemText="Option 3" />
-    <OverflowMenuItem itemText="Option 4" hasDivider/>
-  </OverflowMenu>);
+class Overflow extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      expand: props.expand,
+      view: props.view,
+    }
+  }
+
+  render() {
+    return(<OverflowMenu
+      data-floating-menu-container
+      // selectorPrimaryFocus={'.optionOne'}
+    >
+      <OverflowMenuItem
+        itemText={this.state.expand ? "Expand" : "Minimize"}
+      />
+      <OverflowMenuItem
+        itemText={"Edit"}
+        style={{display: this.state.view ? "block" : "none"}}
+      />
+
+      <OverflowMenuItem itemText="Delete" isDelete/>
+
+    </OverflowMenu>);
+    }
 }
 
 function DescriptionElement(props) {
@@ -102,7 +112,7 @@ class TimelineElement extends React.Component {
             </div>
 
             <div className="col-lg-1">
-              <Overflow></Overflow>
+              <Overflow expand={true} view={true}></Overflow>
             </div>
           </div>
         </div> 

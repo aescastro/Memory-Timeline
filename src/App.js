@@ -43,14 +43,14 @@ class Overflow extends React.Component {
   render() {
     return( 
     <Dropdown>
-      <Dropdown.Toggle variant="link" id="dropdown-basic" bsPrefix="p-0">
+      <Dropdown.Toggle variant="link" id="dropdown-button-drop-start" bsPrefix="p-0">
         <i class="bi bi-three-dots-vertical"></i>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item>Maximize</Dropdown.Item>
-        <Dropdown.Item>Edit</Dropdown.Item>
-        <Dropdown.Item>Delete</Dropdown.Item>
+        <Dropdown.Item>Maximize <i class="bi bi-arrows-angle-expand"></i></Dropdown.Item>
+        <Dropdown.Item>Edit <i class="bi bi-pencil-fill"></i></Dropdown.Item>
+        <Dropdown.Item>Delete <i class="bi bi-trash-fill"></i></Dropdown.Item>
       </Dropdown.Menu>
 
     </Dropdown>);

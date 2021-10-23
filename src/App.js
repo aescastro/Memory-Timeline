@@ -6,6 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Image from 'react-bootstrap/Image'
 import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge'
+import Modal from 'react-bootstrap/Modal'
 
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
@@ -56,34 +57,63 @@ function TaggedElements(props) {
   }
   return null;
 }
-class Overflow extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      minimized: props.minimized,
-      view: props.view,
-    }
-  }
-
-  render() {
-    return( 
-    <Dropdown>
+function Overflow(props) {
+  return( 
+    <Dropdown style={{display: props.minimized ? "block" : "none"}} >
       <Dropdown.Toggle variant="link" id="dropdown-button-drop-start" bsPrefix="p-0">
         <i class="bi bi-three-dots-vertical"></i>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item>{this.state.minimized ? "Maximize" : "Minimize"}{this.state.minimized ? <i class="bi bi-arrows-angle-expand"> </i> : <i class="bi bi-arrows-angle-contract"></i>} </Dropdown.Item>
-        <Dropdown.Item>{this.state.view ? "Edit" : "View"} {this.state.view ? <i class="bi bi-pencil-fill"></i> : <i class="bi bi-eye-fill"></i>}  </Dropdown.Item>
+        <Dropdown.Item style={{display: props.minimized ? "block" : "none"}} onClick={() => props.modal(true)}>
+          View <i class="bi bi-eye-fill"></i>
+        </Dropdown.Item>
+        <Dropdown.Item style={{display: props.view ? "block" : "none"}}>Edit <i class="bi bi-pencil-fill"></i> </Dropdown.Item>
         <Dropdown.Item>Delete <i class="bi bi-trash-fill"></i></Dropdown.Item>
       </Dropdown.Menu>
 
     </Dropdown>);
-    }
+   
 }
 
+function TimelineInfo(props){
+  return(
+    <div>
+      <div className=".container-fluid">  
+        <div className="row">
 
+          <div className="col-lg-11"> 
+            <h3 className="vertical-timeline-element-title">{props.title}</h3>
+          </div>
+
+          <div className="col-lg-1">
+            <Overflow modal={props.modal} minimized={props.minimized} view={props.view}></Overflow>
+          </div>
+        </div>
+      </div> 
+
+      <div className=".container-fluid"> 
+        <div className="row"> 
+          <div className={props.img === undefined ? "col-lg-0" : "col-lg-6 text-center"}
+                        style={{display: props.img === undefined ? 'none' : 'block',
+                                float: props.img === undefined ? 'none' : 'left'}}
+                        >
+            <Image  src={props.img} alt="" rounded fluid></Image>
+          </div>
+
+          <div className={props.img === undefined ? "col-lg-12" : "col-lg-6"}>
+            <div className="row"><DescriptionElement title="Date: " info={props.date}></DescriptionElement></div> 
+            <div className="row"><TaggedElements title="People: " info={props.people} color=""></TaggedElements></div>
+            <div className="row"><TaggedElements title="Tags: " info={props.tags} color="#D3AB9E"></TaggedElements></div>
+            <div className="row"><DescriptionElement title="Decription: " info={props.desc}></DescriptionElement></div>
+          
+          </div>
+        </div>
+      </div> 
+    </div>
+  ); 
+}
 
 class TimelineElement extends React.Component {
   constructor(props) {
@@ -96,53 +126,76 @@ class TimelineElement extends React.Component {
       tags: props.tags,
       date: props.date,
       desc: props.desc,
-      minimized: props.minimized,
-      view: props.view,
+      minimized: true,
+      view: true,
     }
+    this.activateModal = this.activateModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  activateModal(view){
+    this.setState({
+      minimized: false,
+      view: view,
+    });
+  }
+
+  closeModal(){
+    this.setState({
+      minimized: true,
+      view: true,
+    })
   }
 
   render() {
     return(
-      <VerticalTimelineElement
-        className="vertical-timeline-element--work"
-        contentArrowStyle={{ borderRight: '7px solid  #fff' }}
-        iconStyle={{ background: '#553E4E', color: '#fff' }}
-        contentStyle={{background: "#fff"}}
-      >
+        <VerticalTimelineElement
+          className="vertical-timeline-element--work"
+          contentArrowStyle={{ borderRight: '7px solid  #fff' }}
+          iconStyle={{ background: '#553E4E', color: '#fff' }}
+          contentStyle={{background: "#fff"}}
+        >
+          <TimelineInfo
+            title={this.state.title}
+            img={this.state.img}
+            people={this.state.people}
+            tags={this.state.tags}
+            date={this.state.date}
+            desc={this.state.desc}
+            minimized={this.state.minimized}
+            view={this.state.view}
+            modal={this.activateModal}
+          >
+          </TimelineInfo>
+          
+          <Modal 
+            show={!this.state.minimized}
+            size='lg'
+            centered={true}
+            onHide= {this.closeModal}>
 
-        <div className=".container-fluid">  
-          <div className="row">
+            <Modal.Header closeButton>
+              <Modal.Title> 
+                {this.state.view ? "View Memory - " : "Edit Memory - "}  {this.state.title}
+              </Modal.Title>
+            </Modal.Header>
 
-            <div className="col-lg-11"> 
-              <h3 className="vertical-timeline-element-title">{this.state.title}</h3>
-            </div>
-
-            <div className="col-lg-1">
-              <Overflow minimized={this.state.minimized} view={this.state.view}></Overflow>
-            </div>
-          </div>
-        </div> 
-
-        <div className=".container-fluid"> 
-          <div className="row"> 
-            <div className={this.state.img === undefined ? "col-lg-0" : "col-lg-6 text-center"}
-                          style={{display: this.state.img === undefined ? 'none' : 'block',
-                                  float: this.state.img === undefined ? 'none' : 'left'}}
-                          >
-              <Image  src={this.state.img} alt="" rounded fluid></Image>
-            </div>
-
-            <div className={this.state.img === undefined ? "col-lg-12" : "col-lg-6"}>
-              <div className="row"><DescriptionElement title="Date: " info={this.state.date}></DescriptionElement></div> 
-              <div className="row"><TaggedElements title="People: " info={this.state.people} color=""></TaggedElements></div>
-              <div className="row"><TaggedElements title="Tags: " info={this.state.tags} color="#D3AB9E"></TaggedElements></div>
-              <div className="row"><DescriptionElement title="Decription: " info={this.state.desc}></DescriptionElement></div>
-            
-            </div>
-          </div>
-        </div> 
-     
-      </VerticalTimelineElement>
+            <Modal.Body>
+              <TimelineInfo
+                  title=""
+                  img={this.state.img}
+                  people={this.state.people}
+                  tags={this.state.tags}
+                  date={this.state.date}
+                  desc={this.state.desc}
+                  minimized={this.state.minimized}
+                  view={this.state.view}
+                >
+              </TimelineInfo> 
+              </Modal.Body>
+        </Modal>
+        
+        </VerticalTimelineElement>
     );
   }
 }
@@ -159,14 +212,11 @@ class App extends React.Component {
           title="test reuse" 
           date="08/01/2021"
           tags={tags}
-          minimized={true}
-          view={true}
           img="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
         </TimelineElement>
+        
         <TimelineElement 
           title="test reuse" 
-          minimized={true}
-          view={true}
           desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
         </TimelineElement>
 

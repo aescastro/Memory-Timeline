@@ -30,33 +30,6 @@ function DummyElement() {
     );
 }
 
-class Overflow extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      expand: props.expand,
-      view: props.view,
-    }
-  }
-
-  render() {
-    return( 
-    <Dropdown>
-      <Dropdown.Toggle variant="link" id="dropdown-button-drop-start" bsPrefix="p-0">
-        <i class="bi bi-three-dots-vertical"></i>
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item>Maximize <i class="bi bi-arrows-angle-expand"></i></Dropdown.Item>
-        <Dropdown.Item>Edit <i class="bi bi-pencil-fill"></i></Dropdown.Item>
-        <Dropdown.Item>Delete <i class="bi bi-trash-fill"></i></Dropdown.Item>
-      </Dropdown.Menu>
-
-    </Dropdown>);
-    }
-}
-
 function DescriptionElement(props) {
   if (props.info) {
     return (
@@ -83,6 +56,34 @@ function TaggedElements(props) {
   }
   return null;
 }
+class Overflow extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      minimized: props.minimized,
+      view: props.view,
+    }
+  }
+
+  render() {
+    return( 
+    <Dropdown>
+      <Dropdown.Toggle variant="link" id="dropdown-button-drop-start" bsPrefix="p-0">
+        <i class="bi bi-three-dots-vertical"></i>
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item>{this.state.minimized ? "Maximize" : "Minimize"}{this.state.minimized ? <i class="bi bi-arrows-angle-expand"> </i> : <i class="bi bi-arrows-angle-contract"></i>} </Dropdown.Item>
+        <Dropdown.Item>{this.state.view ? "Edit" : "View"} {this.state.view ? <i class="bi bi-pencil-fill"></i> : <i class="bi bi-eye-fill"></i>}  </Dropdown.Item>
+        <Dropdown.Item>Delete <i class="bi bi-trash-fill"></i></Dropdown.Item>
+      </Dropdown.Menu>
+
+    </Dropdown>);
+    }
+}
+
+
 
 class TimelineElement extends React.Component {
   constructor(props) {
@@ -95,6 +96,8 @@ class TimelineElement extends React.Component {
       tags: props.tags,
       date: props.date,
       desc: props.desc,
+      minimized: props.minimized,
+      view: props.view,
     }
   }
 
@@ -115,7 +118,7 @@ class TimelineElement extends React.Component {
             </div>
 
             <div className="col-lg-1">
-              <Overflow expand={true} view={true}></Overflow>
+              <Overflow minimized={this.state.minimized} view={this.state.view}></Overflow>
             </div>
           </div>
         </div> 
@@ -156,10 +159,14 @@ class App extends React.Component {
           title="test reuse" 
           date="08/01/2021"
           tags={tags}
+          minimized={true}
+          view={true}
           img="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
         </TimelineElement>
         <TimelineElement 
           title="test reuse" 
+          minimized={true}
+          view={true}
           desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
         </TimelineElement>
 

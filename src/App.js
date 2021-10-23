@@ -60,7 +60,7 @@ function TaggedElements(props) {
 
 function Overflow(props) {
   return( 
-    <Dropdown style={{display: props.minimized ? "block" : "none"}} >
+    <Dropdown>
       <Dropdown.Toggle variant="link" id="dropdown-button-drop-start" bsPrefix="p-0">
         <i class="bi bi-three-dots-vertical"></i>
       </Dropdown.Toggle>
@@ -87,8 +87,8 @@ function TimelineInfo(props){
             <h3 className="vertical-timeline-element-title">{props.title}</h3>
           </div>
 
-          <div className="col-lg-1">
-            <Overflow modal={props.modal} minimized={props.minimized} view={props.view}></Overflow>
+          <div className="col-lg-1" style={{display: props.showOverflow ? "block" : "none"}}>
+            <Overflow  modal={props.modal} minimized={props.minimized} view={props.view}></Overflow>
           </div>
         </div>
       </div> 
@@ -165,6 +165,7 @@ class TimelineElement extends React.Component {
             minimized={this.state.minimized}
             view={this.state.view}
             modal={this.activateModal}
+            showOverflow={true}
           >
           </TimelineInfo>
           
@@ -172,7 +173,9 @@ class TimelineElement extends React.Component {
             show={!this.state.minimized}
             size='lg'
             centered={true}
-            onHide= {this.closeModal}>
+            onHide= {this.closeModal}
+            showOverflow={false}
+            >
 
             <Modal.Header closeButton>
               <Modal.Title> 

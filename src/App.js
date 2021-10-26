@@ -3,13 +3,16 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import Image from 'react-bootstrap/Image'
 import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge'
 import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form'
 
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
+import { Row, Col, Container} from 'react-bootstrap';
 
 
 function DummyElement() {
@@ -31,19 +34,43 @@ function DummyElement() {
     );
 }
 
-function DescriptionElement(props) {
-  if (props.info) {
-    return (
-      <div className="desc-container">
-        {props.title} 
-        
-        <span className="event-text">
-          {props.info}
-        </span>
-      </div>
-    );
+class DescriptionElement extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      info: props.info,
+      title: props.title,
+      view: props.view,
+      as: props.as,
+    }
   }
-  return null;
+  
+  render(){
+    if (this.state.info) {
+      return (
+        <Container>
+          <Form.Group>
+              <Col xs="auto">
+                <div className="desc-container" size="lg">{this.state.title} </div>
+              </Col>
+            
+              <Col xs="auto">
+                <Form.Control
+                  as={this.state.as} 
+                  size="sm"
+                  value={this.state.info}
+                  disabled={this.state.view}
+                  plaintext={this.state.view}
+                  > 
+                </Form.Control>
+              </Col>
+          </Form.Group>
+        </Container>
+      );
+    }
+    return null;
+  }
 }
 
 function TaggedElements(props) {
@@ -51,9 +78,10 @@ function TaggedElements(props) {
     var tags = new Set(props.info);
     tags = Array.from(tags).map(x => <Badge bg="primary" key={x} style={{margin: "1px"}}>{x}</Badge>)
       
-      return (<div className="desc-container"> 
+      return (<Col className="desc-container"> 
                 {props.title} {tags}
-              </div>  );
+              </Col>  
+              );
   }
   return null;
 }
@@ -62,15 +90,15 @@ function Overflow(props) {
   return( 
     <Dropdown>
       <Dropdown.Toggle variant="link" id="dropdown-button-drop-start" bsPrefix="p-0">
-        <i class="bi bi-three-dots-vertical"></i>
+        <i className="bi bi-three-dots-vertical"></i>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
         <Dropdown.Item style={{display: props.minimized ? "block" : "none"}} onClick={() => props.modal(true)}>
-          View <i class="bi bi-eye-fill"></i>
+          View <i className="bi bi-eye-fill"></i>
         </Dropdown.Item>
-        <Dropdown.Item style={{display: props.view ? "block" : "none"}}>Edit <i class="bi bi-pencil-fill"></i> </Dropdown.Item>
-        <Dropdown.Item>Delete <i class="bi bi-trash-fill"></i></Dropdown.Item>
+        <Dropdown.Item style={{display: props.view ? "block" : "none"}}>Edit <i className="bi bi-pencil-fill"></i> </Dropdown.Item>
+        <Dropdown.Item>Delete <i className="bi bi-trash-fill"></i></Dropdown.Item>
       </Dropdown.Menu>
 
     </Dropdown>);
@@ -80,37 +108,39 @@ function Overflow(props) {
 function TimelineInfo(props){
   return(
     <div>
-      <div className=".container-fluid">  
-        <div className="row">
+      <Container fluid> 
+        <Row>
 
-          <div className="col-lg-11"> 
+          <Col xs="11" >
             <h3 className="vertical-timeline-element-title">{props.title}</h3>
-          </div>
+          </Col>
 
-          <div className="col-lg-1" style={{display: props.showOverflow ? "block" : "none"}}>
+          <Col xs="1" style={{display: props.showOverflow ? "block" : "none"}}>
             <Overflow  modal={props.modal} minimized={props.minimized} view={props.view}></Overflow>
-          </div>
-        </div>
-      </div> 
+          </Col>
+        </Row>
+      </Container>
 
-      <div className=".container-fluid"> 
-        <div className="row"> 
-          <div className={props.img === undefined ? "col-lg-0" : "col-lg-6 text-center"}
-                        style={{display: props.img === undefined ? 'none' : 'block',
-                                float: props.img === undefined ? 'none' : 'left'}}
-                        >
-            <Image  src={props.img} alt="" rounded fluid></Image>
-          </div>
+      <Container fluid>
+        <Form>
+          <Row>
+            <Col xs={props.img === undefined ? "0" : "6"}
+                          style={{display: props.img === undefined ? 'none' : 'block',
+                                  float: props.img === undefined ? 'none' : 'left'}}
+                          >
+              <div className="text-center"><Image src={props.img} alt="" rounded fluid></Image></div>
+            </Col>
 
-          <div className={props.img === undefined ? "col-lg-12" : "col-lg-6"}>
-            <div className="row"><DescriptionElement title="Date: " info={props.date}></DescriptionElement></div> 
-            <div className="row"><TaggedElements title="People: " info={props.people} color=""></TaggedElements></div>
-            <div className="row"><TaggedElements title="Tags: " info={props.tags} color="#D3AB9E"></TaggedElements></div>
-            <div className="row"><DescriptionElement title="Decription: " info={props.desc}></DescriptionElement></div>
-          
-          </div>
-        </div>
-      </div> 
+            <Col xs={props.img === undefined ? "12" : "6"}>
+              <Row><DescriptionElement title="Date" info={props.date} view={props.view} as="date"></DescriptionElement></Row>
+              <Row><TaggedElements title="People" info={props.people} color=""></TaggedElements></Row>
+              <Row><TaggedElements title="Tags" info={props.tags} color="#D3AB9E"></TaggedElements></Row>
+              <Row><DescriptionElement title="Description" info={props.desc} view={props.view} as="textarea"></DescriptionElement></Row>
+            </Col>
+            
+          </Row>
+        </Form>
+      </Container>
     </div>
   ); 
 }
@@ -174,7 +204,7 @@ class TimelineElement extends React.Component {
             size='lg'
             centered={true}
             onHide= {this.closeModal}
-            showOverflow={false}
+            dialogClassName="modal"
             >
 
             <Modal.Header closeButton>
@@ -193,10 +223,11 @@ class TimelineElement extends React.Component {
                   desc={this.state.desc}
                   minimized={this.state.minimized}
                   view={this.state.view}
+                  showOverflow={false}
                 >
               </TimelineInfo> 
-              </Modal.Body>
-        </Modal>
+            </Modal.Body>
+          </Modal>
         
         </VerticalTimelineElement>
     );
@@ -207,13 +238,13 @@ class App extends React.Component {
 
   render() {
     var tags = ["food", "vacation", "food"];
-
+    var date = new Date(2021,8,1,0,0,0,0);
     return (
 
       <VerticalTimeline>
         <TimelineElement 
           title="test reuse" 
-          date="08/01/2021"
+          date={date}
           tags={tags}
           img="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
         </TimelineElement>

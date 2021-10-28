@@ -1,10 +1,15 @@
 
+
 body {
   background-color: #EBD8D0 !important;
 }
 
 .badge.bg-primary {
   background-color: #6B9080 !important;
+}
+
+.form.control {
+  background-color: #FFFFFF !important;
 }
 
 .desc-container {
@@ -22,4 +27,5 @@ body {
   font-family: 'Hind', sans-serif;
 }
 
-
+.modal {
+}

@@ -3,6 +3,7 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import TextareaAutosize from 'react-textarea-autosize';
 
 import Image from 'react-bootstrap/Image'
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -34,6 +35,38 @@ function DummyElement() {
     );
 }
 
+class BootstrapTextarea extends React.Component{
+
+    constructor(){
+        super();
+        this.state = {
+            address:null
+        }
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleInputChange(event) {
+        this.setState({
+            address: event.target.value
+        });
+
+        console.warn(this.state)
+    }
+
+    render(){
+        return(
+            <div>
+                <Form>
+                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Example textarea</Form.Label>
+                        <Form.Control as="textarea" rows="3" name="address" onChange={this.handleInputChange} />
+                    </Form.Group>
+                </Form>
+            </div>
+        )  
+    }
+}
 class DescriptionElement extends React.Component {
   constructor(props) {
     super(props);
@@ -42,33 +75,39 @@ class DescriptionElement extends React.Component {
       info: props.info,
       title: props.title,
       view: props.view,
+      type: props.type,
       as: props.as,
     }
+
+    this.handleChange = this.handleChange.bind(this);
   }
   
+  handleChange(event) {
+    this.setState({
+      info: event.target.value,
+    });
+  }
+
   render(){
-    if (this.state.info) {
+    if (this.state.info || !this.state.info) {
       return (
-        <Container>
-          <Form.Group>
-              <Col xs="auto">
-                <div className="desc-container" size="lg">{this.state.title} </div>
-              </Col>
-            
-              <Col xs="auto">
+        <Form.Group>
+              <div className="desc-container" size="lg">
+                {this.state.title} 
                 <Form.Control
-                  as={this.state.as} 
-                  size="sm"
+                  type={this.state.type} 
+                  as={this.state.as}
                   value={this.state.info}
                   disabled={this.state.view}
                   plaintext={this.state.view}
+                  onChange={this.handleChange}
                   > 
                 </Form.Control>
-              </Col>
-          </Form.Group>
-        </Container>
+              </div>
+        </Form.Group>
       );
     }
+
     return null;
   }
 }
@@ -97,7 +136,11 @@ function Overflow(props) {
         <Dropdown.Item style={{display: props.minimized ? "block" : "none"}} onClick={() => props.modal(true)}>
           View <i className="bi bi-eye-fill"></i>
         </Dropdown.Item>
-        <Dropdown.Item style={{display: props.view ? "block" : "none"}}>Edit <i className="bi bi-pencil-fill"></i> </Dropdown.Item>
+
+        <Dropdown.Item style={{display: props.view ? "block" : "none"}} onClick={() => props.modal(false)}>
+          Edit <i className="bi bi-pencil-fill"></i> 
+        </Dropdown.Item>
+
         <Dropdown.Item>Delete <i className="bi bi-trash-fill"></i></Dropdown.Item>
       </Dropdown.Menu>
 
@@ -132,10 +175,10 @@ function TimelineInfo(props){
             </Col>
 
             <Col xs={props.img === undefined ? "12" : "6"}>
-              <Row><DescriptionElement title="Date" info={props.date} view={props.view} as="date"></DescriptionElement></Row>
-              <Row><TaggedElements title="People" info={props.people} color=""></TaggedElements></Row>
-              <Row><TaggedElements title="Tags" info={props.tags} color="#D3AB9E"></TaggedElements></Row>
-              <Row><DescriptionElement title="Description" info={props.desc} view={props.view} as="textarea"></DescriptionElement></Row>
+              <DescriptionElement title="Date" info={props.date} view={props.view} type="date" ></DescriptionElement>
+              <TaggedElements title="People" info={props.people} color=""></TaggedElements>
+              <TaggedElements title="Tags" info={props.tags} color="#D3AB9E"></TaggedElements>
+              <DescriptionElement title="Description" info={props.desc} view={props.view} as={TextareaAutosize}></DescriptionElement>
             </Col>
             
           </Row>
@@ -238,13 +281,15 @@ class App extends React.Component {
 
   render() {
     var tags = ["food", "vacation", "food"];
-    var date = new Date(2021,8,1,0,0,0,0);
+    // var date = new Date(2021,8,1);
+    // var dateString = date.toString().replace(/[0-9]+-[0-9]+-[0-9]$/, "");
+    // console.log(dateString);
     return (
 
       <VerticalTimeline>
         <TimelineElement 
           title="test reuse" 
-          date={date}
+          date={"2021-08-24"}
           tags={tags}
           img="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
         </TimelineElement>

@@ -89,9 +89,9 @@ class DescriptionElement extends React.Component {
   }
 
   render(){
-    if (this.state.info || !this.state.info) {
+    if (this.state.info) {
       return (
-        <Form.Group>
+        <Form.Group >
               <div className="desc-container" size="lg">
                 {this.state.title} 
                 <Form.Control
@@ -250,7 +250,11 @@ class TimelineElement extends React.Component {
             dialogClassName="modal"
             >
 
-            <Modal.Header closeButton>
+            <Modal.Header 
+              style={{backgroundColor: !this.state.view ? "#e0c1b4" : "#FFFFFF", 
+                      color: !this.state.view ? "#FFFFFF" : "#000000",
+                      textShadow: !this.state.view ? "2px 2px 4px #000000" : "0px 0px" }}
+              closeButton>
               <Modal.Title> 
                 {this.state.view ? "View Memory - " : "Edit Memory - "}  {this.state.title}
               </Modal.Title>

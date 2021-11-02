@@ -251,24 +251,22 @@ class TimelineElement extends React.Component {
             
             >
             
-            <Row>
-              <Modal.Header 
-                style={{backgroundColor: !this.state.view ? "#e0c1b4" : "#FFFFFF", 
-                        color: !this.state.view ? "#FFFFFF" : "#000000" }}
-                closeButton>
-                
+            <Modal.Header 
+              style={{backgroundColor: !this.state.view ? "#e0c1b4" : "#FFFFFF", 
+                      color: !this.state.view ? "#FFFFFF" : "#000000" }}
+              closeButton>
+              
                 <Col>
                   <Modal.Title style={{textShadow: !this.state.view ? "2px 2px 4px #000000" : "0px 0px"}}> 
                     {this.state.view ? "View Memory - " : "Edit Memory - "}  {this.state.title}
                   </Modal.Title>
                 </Col>
 
-                <Col style={{position: 'absolute', right: 30}}>
+                <Col style={{position: 'absolute', right: 40}}>
                   <Overflow view={this.state.view} minimized={this.state.minimized} modal={this.activateModal}></Overflow>
                 </Col>
 
-              </Modal.Header>
-            </Row>
+            </Modal.Header>
 
             <Modal.Body>
               <TimelineInfo

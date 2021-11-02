@@ -293,9 +293,7 @@ class App extends React.Component {
 
   render() {
     var tags = ["food", "vacation", "food"];
-    // var date = new Date(2021,8,1);
-    // var dateString = date.toString().replace(/[0-9]+-[0-9]+-[0-9]$/, "");
-    // console.log(dateString);
+    
     return (
 
       <VerticalTimeline>

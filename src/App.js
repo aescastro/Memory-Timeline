@@ -89,7 +89,7 @@ class DescriptionElement extends React.Component {
   }
 
   render(){
-    if (this.state.info) {
+    if (this.state.info || !this.state.view) {
       return (
         <Form.Group >
               <div className="desc-container" size="lg">
@@ -133,7 +133,7 @@ function Overflow(props) {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item style={{display: props.minimized ? "block" : "none"}} onClick={() => props.modal(true)}>
+        <Dropdown.Item style={{display: props.minimized || !props.view ? "block" : "none"}} onClick={() => props.modal(true)}>
           View <i className="bi bi-eye-fill"></i>
         </Dropdown.Item>
 
@@ -216,7 +216,6 @@ class TimelineElement extends React.Component {
   closeModal(){
     this.setState({
       minimized: true,
-      view: true,
     })
   }
 
@@ -247,18 +246,29 @@ class TimelineElement extends React.Component {
             size='lg'
             centered={true}
             onHide= {this.closeModal}
+            onExited={() => this.setState({view: true})}
             dialogClassName="modal"
+            
             >
+            
+            <Row>
+              <Modal.Header 
+                style={{backgroundColor: !this.state.view ? "#e0c1b4" : "#FFFFFF", 
+                        color: !this.state.view ? "#FFFFFF" : "#000000" }}
+                closeButton>
+                
+                <Col>
+                  <Modal.Title style={{textShadow: !this.state.view ? "2px 2px 4px #000000" : "0px 0px"}}> 
+                    {this.state.view ? "View Memory - " : "Edit Memory - "}  {this.state.title}
+                  </Modal.Title>
+                </Col>
 
-            <Modal.Header 
-              style={{backgroundColor: !this.state.view ? "#e0c1b4" : "#FFFFFF", 
-                      color: !this.state.view ? "#FFFFFF" : "#000000",
-                      textShadow: !this.state.view ? "2px 2px 4px #000000" : "0px 0px" }}
-              closeButton>
-              <Modal.Title> 
-                {this.state.view ? "View Memory - " : "Edit Memory - "}  {this.state.title}
-              </Modal.Title>
-            </Modal.Header>
+                <Col style={{position: 'absolute', right: 30}}>
+                  <Overflow view={this.state.view} minimized={this.state.minimized} modal={this.activateModal}></Overflow>
+                </Col>
+
+              </Modal.Header>
+            </Row>
 
             <Modal.Body>
               <TimelineInfo

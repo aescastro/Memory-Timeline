@@ -35,38 +35,6 @@ function DummyElement() {
     );
 }
 
-class BootstrapTextarea extends React.Component{
-
-    constructor(){
-        super();
-        this.state = {
-            address:null
-        }
-
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
-    handleInputChange(event) {
-        this.setState({
-            address: event.target.value
-        });
-
-        console.warn(this.state)
-    }
-
-    render(){
-        return(
-            <div>
-                <Form>
-                    <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Example textarea</Form.Label>
-                        <Form.Control as="textarea" rows="3" name="address" onChange={this.handleInputChange} />
-                    </Form.Group>
-                </Form>
-            </div>
-        )  
-    }
-}
 class DescriptionElement extends React.Component {
   constructor(props) {
     super(props);
@@ -79,19 +47,12 @@ class DescriptionElement extends React.Component {
       as: props.as,
     }
 
-    this.handleChange = this.handleChange.bind(this);
-  }
-  
-  handleChange(event) {
-    this.setState({
-      info: event.target.value,
-    });
   }
 
   render(){
     if (this.state.info || !this.state.view) {
       return (
-        <Form.Group >
+        <Form.Group>
               <div className="desc-container" size="lg">
                 {this.state.title} 
                 <Form.Control
@@ -126,6 +87,7 @@ function TaggedElements(props) {
 }
 
 function Overflow(props) {
+  
   return( 
     <Dropdown>
       <Dropdown.Toggle variant="link" id="dropdown-button-drop-start" bsPrefix="p-0">
@@ -204,9 +166,11 @@ class TimelineElement extends React.Component {
     }
     this.activateModal = this.activateModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   activateModal(view){
+    console.log(view);
     this.setState({
       minimized: false,
       view: view,
@@ -217,6 +181,12 @@ class TimelineElement extends React.Component {
     this.setState({
       minimized: true,
     })
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   }
 
   render() {
@@ -248,40 +218,56 @@ class TimelineElement extends React.Component {
             onHide= {this.closeModal}
             onExited={() => this.setState({view: true})}
             dialogClassName="modal"
-            
             >
             
             <Modal.Header 
-              style={{backgroundColor: !this.state.view ? "#e0c1b4" : "#FFFFFF", 
-                      color: !this.state.view ? "#FFFFFF" : "#000000" }}
+              style={{backgroundColor: !this.state.view ? "#e0c1b4" : "#D6D6D6", 
+                      color: "#FFFFFF"}}
               closeButton>
               
                 <Col>
-                  <Modal.Title style={{textShadow: !this.state.view ? "2px 2px 4px #000000" : "0px 0px"}}> 
+                  <Modal.Title style={{textShadow:  "2px 2px 4px #000000"}}> 
                     {this.state.view ? "View Memory - " : "Edit Memory - "}  {this.state.title}
                   </Modal.Title>
                 </Col>
 
                 <Col style={{position: 'absolute', right: 40}}>
-                  <Overflow view={this.state.view} minimized={this.state.minimized} modal={this.activateModal}></Overflow>
+                  <Overflow modal={this.activateModal} minimized={this.state.minimized} view={this.state.view}></Overflow>
                 </Col>
 
             </Modal.Header>
 
-            <Modal.Body>
-              <TimelineInfo
-                  title=""
-                  img={this.state.img}
-                  people={this.state.people}
-                  tags={this.state.tags}
-                  date={this.state.date}
-                  desc={this.state.desc}
-                  minimized={this.state.minimized}
-                  view={this.state.view}
-                  showOverflow={false}
-                >
-              </TimelineInfo> 
-            </Modal.Body>
+            <Container fluid>
+              <Modal.Body>
+                <Row>
+                  <Col 
+                    xs={this.state.img === undefined ? "0" : "6"}
+                    style={{display: this.state.img === undefined ? 'none' : 'block', float: this.state.img === undefined ? 'none' : 'left'}}>
+                    <div className="text-center"><Image src={this.state.img} alt="" rounded fluid></Image></div>
+                  </Col>
+
+                  
+
+                  <Col xs={this.state.img === undefined ? "12" : "6"}>
+                    <Form.Group>
+                      <div className="desc-container" size="lg">
+                        Date
+                        <Form.Control name="date" type="date" value={this.state.date} disabled={this.state.view} plaintext={this.state.view} onChange={this.handleChange}></Form.Control>
+                      </div>
+                    </Form.Group>
+
+                    <TaggedElements title="Tags" info={this.state.tags} color="#D3AB9E"></TaggedElements>
+
+                    <Form.Group>
+                      <div className="desc-container" size="lg">
+                        Description 
+                        <Form.Control name="desc" as={TextareaAutosize} value={this.state.desc} disabled={this.state.view} plaintext={this.state.view} onChange={this.handleChange}> </Form.Control>
+                      </div>
+                    </Form.Group> 
+                  </Col>
+                </Row>
+              </Modal.Body>
+            </Container>
           </Modal>
         
         </VerticalTimelineElement>

@@ -35,53 +35,13 @@ function DummyElement() {
     );
 }
 
-class DescriptionElement extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      info: props.info,
-      title: props.title,
-      view: props.view,
-      type: props.type,
-      as: props.as,
-    }
-
-  }
-
-  render(){
-    if (this.state.info || !this.state.view) {
-      return (
-        <Form.Group>
-              <div className="desc-container" size="lg">
-                {this.state.title} 
-                <Form.Control
-                  type={this.state.type} 
-                  as={this.state.as}
-                  value={this.state.info}
-                  disabled={this.state.view}
-                  plaintext={this.state.view}
-                  onChange={this.handleChange}
-                  > 
-                </Form.Control>
-              </div>
-        </Form.Group>
-      );
-    }
-
-    return null;
-  }
-}
 
 function TaggedElements(props) {
   if (props.info) {
     var tags = new Set(props.info);
     tags = Array.from(tags).map(x => <Badge bg="primary" key={x} style={{margin: "1px"}}>{x}</Badge>)
       
-      return (<Col className="desc-container"> 
-                {props.title} {tags}
-              </Col>  
-              );
+      return (<span id="tagged" className="desc-container">{props.title} {tags}</span>);
   }
   return null;
 }
@@ -105,51 +65,9 @@ function Overflow(props) {
 
         <Dropdown.Item>Delete <i className="bi bi-trash-fill"></i></Dropdown.Item>
       </Dropdown.Menu>
-
     </Dropdown>);
    
 }
-
-function TimelineInfo(props){
-  return(
-    <div>
-      <Container fluid> 
-        <Row>
-
-          <Col xs="11" >
-            <h3 className="vertical-timeline-element-title">{props.title}</h3>
-          </Col>
-
-          <Col xs="1" style={{display: props.showOverflow ? "block" : "none"}}>
-            <Overflow  modal={props.modal} minimized={props.minimized} view={props.view}></Overflow>
-          </Col>
-        </Row>
-      </Container>
-
-      <Container fluid>
-        <Form>
-          <Row>
-            <Col xs={props.img === undefined ? "0" : "6"}
-                          style={{display: props.img === undefined ? 'none' : 'block',
-                                  float: props.img === undefined ? 'none' : 'left'}}
-                          >
-              <div className="text-center"><Image src={props.img} alt="" rounded fluid></Image></div>
-            </Col>
-
-            <Col xs={props.img === undefined ? "12" : "6"}>
-              <DescriptionElement title="Date" info={props.date} view={props.view} type="date" ></DescriptionElement>
-              <TaggedElements title="People" info={props.people} color=""></TaggedElements>
-              <TaggedElements title="Tags" info={props.tags} color="#D3AB9E"></TaggedElements>
-              <DescriptionElement title="Description" info={props.desc} view={props.view} as={TextareaAutosize}></DescriptionElement>
-            </Col>
-            
-          </Row>
-        </Form>
-      </Container>
-    </div>
-  ); 
-}
-
 class TimelineElement extends React.Component {
   constructor(props) {
     super(props);
@@ -197,20 +115,40 @@ class TimelineElement extends React.Component {
           iconStyle={{ background: '#553E4E', color: '#fff' }}
           contentStyle={{background: "#fff"}}
         >
-          <TimelineInfo
-            title={this.state.title}
-            img={this.state.img}
-            people={this.state.people}
-            tags={this.state.tags}
-            date={this.state.date}
-            desc={this.state.desc}
-            minimized={this.state.minimized}
-            view={this.state.view}
-            modal={this.activateModal}
-            showOverflow={true}
-          >
-          </TimelineInfo>
-          
+        <Container fluid> 
+          <Row>
+
+            <Col xs="11" >
+              <h3 className="vertical-timeline-element-title">{this.state.title}</h3>
+            </Col>
+
+            <Col xs="1" style={{display: "block"}}>
+              <Overflow  modal={this.activateModal} minimized={this.state.minimized} view={this.state.view}></Overflow>
+            </Col>
+          </Row>
+        </Container>
+
+        <Container fluid>
+          <Row>
+            <Col xs={this.state.img === undefined ? "0" : "6"}
+                          style={{display: this.state.img === undefined ? 'none' : 'block',
+                                  float: this.state.img === undefined ? 'none' : 'left'}}
+                          >
+              <div className="text-center"><Image src={this.state.img} alt="" rounded fluid></Image></div>
+            </Col>
+
+            <Col xs={this.state.img === undefined ? "12" : "6"} className="desc-container">
+              <Row style={{display: this.state.date ? "block" : "none"}}>Date</Row>
+              <Row><span className="event-text" >{this.state.date}</span></Row>
+              <Row><TaggedElements title="People" info={this.state.people} color=""></TaggedElements></Row>
+              <Row><TaggedElements title="Tags" info={this.state.tags} color="#D3AB9E"></TaggedElements></Row>
+              <Row style={{display: this.state.desc ? "block" : "none"}}>Description</Row>
+              <Row><p className="event-text">{this.state.desc}</p></Row>
+            </Col>
+            
+          </Row>
+        </Container>
+
           <Modal 
             show={!this.state.minimized}
             size='lg'
@@ -226,7 +164,7 @@ class TimelineElement extends React.Component {
               closeButton>
               
                 <Col>
-                  <Modal.Title style={{textShadow:  "2px 2px 4px #000000"}}> 
+                  <Modal.Title style={{textShadow:  "2px 2px 4px #000000", margin: "0%", padding: "0%"}}> 
                     {this.state.view ? "View Memory - " : "Edit Memory - "}  {this.state.title}
                   </Modal.Title>
                 </Col>

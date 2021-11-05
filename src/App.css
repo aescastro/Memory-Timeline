@@ -21,6 +21,8 @@ body {
   font-size: 95% !important;
   line-height: 130% !important;
   font-weight: normal !important;
+  padding: 0% !important;
+  margin: 0% !important;
 }
 
 .event-info {
@@ -28,4 +30,8 @@ body {
 }
 
 .modal {
+}
+#tagged {
+  padding: 0% !important;
+  margin: 0% !important;
 }

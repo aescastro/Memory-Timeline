@@ -10,6 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
@@ -34,7 +35,6 @@ function DummyElement() {
       
     );
 }
-
 
 function TaggedElements(props) {
   if (props.info) {
@@ -74,17 +74,22 @@ class TimelineElement extends React.Component {
 
     this.state = {
       title: props.title,
+      newTitle: props.title,
       img: props.img,
       people: props.people,
       tags: props.tags,
       date: props.date,
+      newDate: props.date,
       desc: props.desc,
+      newDesc: props.desc,
       minimized: true,
       view: true,
     }
     this.activateModal = this.activateModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onClose = this.onClose.bind(this);
+    this.save = this.save.bind(this);
   }
 
   activateModal(view){
@@ -107,6 +112,54 @@ class TimelineElement extends React.Component {
     });
   }
 
+  onClose() {
+    this.setState({
+      view: true,
+    });
+
+    if (this.state.title && this.state.newTitle != this.state.title) {
+      this.setState({
+        newTitle: this.state.title,
+      });
+    }
+
+    if (this.state.date && this.state.newDate != this.state.date) {
+      this.setState({
+        newDate: this.state.date,
+      });
+    }
+
+    if (this.state.desc && this.state.newDesc != this.state.desc) {
+      this.setState({
+        newDesc: this.state.desc,
+      })
+    }  
+  }
+
+  save() {
+    this.setState({
+      view: true,
+    });
+    
+    if (this.state.title && this.state.newTitle != this.state.title) {
+      this.setState({
+        title: this.state.newTitle,
+      });
+    }
+
+    if (this.state.date && this.state.newDate != this.state.date) {
+      this.setState({
+        date: this.state.newDate,
+      });
+    }
+
+    if (this.state.desc && this.state.newDesc != this.state.desc) {
+      this.setState({
+        desc: this.state.newDesc,
+      })
+    }  
+  }
+
   render() {
     return(
         <VerticalTimelineElement
@@ -115,10 +168,11 @@ class TimelineElement extends React.Component {
           iconStyle={{ background: '#553E4E', color: '#fff' }}
           contentStyle={{background: "#fff"}}
         >
+        {/* For the element in the timeline on the main page */}
         <Container fluid> 
           <Row>
 
-            <Col xs="11" >
+            <Col xs="11" style={{marginLeft: "0%", paddingLeft: "0%"}}>
               <h3 className="vertical-timeline-element-title">{this.state.title}</h3>
             </Col>
 
@@ -149,12 +203,13 @@ class TimelineElement extends React.Component {
           </Row>
         </Container>
 
+          {/* For the popup in the mazimized view/edit mode */}
           <Modal 
             show={!this.state.minimized}
             size='lg'
             centered={true}
             onHide= {this.closeModal}
-            onExited={() => this.setState({view: true})}
+            onExited={this.onClose}
             dialogClassName="modal"
             >
             
@@ -184,13 +239,11 @@ class TimelineElement extends React.Component {
                     <div className="text-center"><Image src={this.state.img} alt="" rounded fluid></Image></div>
                   </Col>
 
-                  
-
                   <Col xs={this.state.img === undefined ? "12" : "6"}>
                     <Form.Group>
                       <div className="desc-container" size="lg">
                         Date
-                        <Form.Control name="date" type="date" value={this.state.date} disabled={this.state.view} plaintext={this.state.view} onChange={this.handleChange}></Form.Control>
+                        <Form.Control name="newDate" type="date" value={this.state.newDate} disabled={this.state.view} plaintext={this.state.view} onChange={this.handleChange}></Form.Control>
                       </div>
                     </Form.Group>
 
@@ -199,9 +252,10 @@ class TimelineElement extends React.Component {
                     <Form.Group>
                       <div className="desc-container" size="lg">
                         Description 
-                        <Form.Control name="desc" as={TextareaAutosize} value={this.state.desc} disabled={this.state.view} plaintext={this.state.view} onChange={this.handleChange}> </Form.Control>
+                        <Form.Control name="newDesc" as={TextareaAutosize} value={this.state.newDesc} disabled={this.state.view} plaintext={this.state.view} onChange={this.handleChange}> </Form.Control>
                       </div>
                     </Form.Group> 
+                    <Button style={{display: this.state.view ? "none" : "block", float: "right"}} onClick={this.save}>Save</Button>
                   </Col>
                 </Row>
               </Modal.Body>

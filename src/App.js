@@ -14,6 +14,7 @@ import Button from 'react-bootstrap/Button'
 
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
+import { unmountComponentAtNode } from 'react-dom';
 import { Row, Col, Container} from 'react-bootstrap';
 
 
@@ -24,6 +25,8 @@ function DummyElement() {
         contentArrowStyle={{ borderRight: '7px solid  #fff' }}
         iconStyle={{ background: '#553E4E', color: '#fff' }}
         contentStyle={{background: "#fff", }}
+        date="04/07/2018"
+        dateClassName="date"
       >
         
         <h3 className="vertical-timeline-element-title">Lorem ipsum dolor</h3>
@@ -63,7 +66,7 @@ function Overflow(props) {
           Edit <i className="bi bi-pencil-fill"></i> 
         </Dropdown.Item>
 
-        <Dropdown.Item>Delete <i className="bi bi-trash-fill"></i></Dropdown.Item>
+        <Dropdown.Item onClick={props.delete}>Delete <i className="bi bi-trash-fill"></i></Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>);
    
@@ -76,6 +79,7 @@ class TimelineElement extends React.Component {
       title: props.title,
       newTitle: props.title,
       img: props.img,
+      newImg: props.img,
       people: props.people,
       tags: props.tags,
       date: props.date,
@@ -90,10 +94,10 @@ class TimelineElement extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.onClose = this.onClose.bind(this);
     this.save = this.save.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   activateModal(view){
-    console.log(view);
     this.setState({
       minimized: false,
       view: view,
@@ -134,6 +138,17 @@ class TimelineElement extends React.Component {
         newDesc: this.state.desc,
       })
     }  
+
+    if (this.state.img && this.state.newImg != this.state.img) {
+      this.setState({
+        newImg: this.state.img,
+      })
+    } 
+    //TODO: add other things like people, tags here when implemented
+  }
+
+  delete() {
+    unmountComponentAtNode(document.getElementById('check'));
   }
 
   save() {
@@ -158,15 +173,27 @@ class TimelineElement extends React.Component {
         desc: this.state.newDesc,
       })
     }  
+
+    if (this.state.img && this.state.newImg != this.state.img) {
+      this.setState({
+        img: this.state.newImg,
+      })
+    }
+    //TODO: add other things like people, tags here when implemented
   }
 
   render() {
+    console.log(this.state.view);
+    console.log(this.state.img === undefined);
     return(
         <VerticalTimelineElement
           className="vertical-timeline-element--work"
           contentArrowStyle={{ borderRight: '7px solid  #fff' }}
           iconStyle={{ background: '#553E4E', color: '#fff' }}
           contentStyle={{background: "#fff"}}
+          id="check"
+          date={this.state.date}
+          dateClassName="date"
         >
         {/* For the element in the timeline on the main page */}
         <Container fluid> 
@@ -177,7 +204,7 @@ class TimelineElement extends React.Component {
             </Col>
 
             <Col xs="1" style={{display: "block"}}>
-              <Overflow  modal={this.activateModal} minimized={this.state.minimized} view={this.state.view}></Overflow>
+              <Overflow  delete={this.delete} modal={this.activateModal} minimized={this.state.minimized} view={this.state.view}></Overflow>
             </Col>
           </Row>
         </Container>
@@ -222,10 +249,9 @@ class TimelineElement extends React.Component {
                   <Modal.Title style={{textShadow:  "2px 2px 4px #000000", margin: "0%", padding: "0%"}}> 
                     {this.state.view ? "View Memory - " : "Edit Memory - "}  {this.state.title}
                   </Modal.Title>
-                </Col>
-
+                </Col> 
                 <Col style={{position: 'absolute', right: 40}}>
-                  <Overflow modal={this.activateModal} minimized={this.state.minimized} view={this.state.view}></Overflow>
+                  <Overflow delete={this.delete} modal={this.activateModal} minimized={this.state.minimized} view={this.state.view}></Overflow>
                 </Col>
 
             </Modal.Header>
@@ -234,12 +260,13 @@ class TimelineElement extends React.Component {
               <Modal.Body>
                 <Row>
                   <Col 
-                    xs={this.state.img === undefined ? "0" : "6"}
-                    style={{display: this.state.img === undefined ? 'none' : 'block', float: this.state.img === undefined ? 'none' : 'left'}}>
+                    xs={this.state.img === undefined && this.state.view ? "0" : "6"}
+                    style={{float: this.state.img === undefined ? 'none' : 'left'}}>
                     <div className="text-center"><Image src={this.state.img} alt="" rounded fluid></Image></div>
+                    <Form.Control name="newImg" type="file" accept="image/*" value={this.state.newImg} onChange={this.handleChange} style={{display: !this.state.view ? "block" : "none"}}></Form.Control>
                   </Col>
 
-                  <Col xs={this.state.img === undefined ? "12" : "6"}>
+                  <Col xs={this.state.img === undefined && this.state.view ? "12" : "6"}>
                     <Form.Group>
                       <div className="desc-container" size="lg">
                         Date

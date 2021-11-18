@@ -14,7 +14,6 @@ import Button from 'react-bootstrap/Button'
 
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import { unmountComponentAtNode } from 'react-dom';
 import { Row, Col, Container} from 'react-bootstrap';
 
 
@@ -88,6 +87,7 @@ class TimelineElement extends React.Component {
       newDesc: props.desc,
       minimized: true,
       view: true,
+      deleted: false,
     }
     this.activateModal = this.activateModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -148,7 +148,10 @@ class TimelineElement extends React.Component {
   }
 
   delete() {
-    unmountComponentAtNode(document.getElementById('check'));
+    this.closeModal();
+    this.setState({
+      deleted: true,
+    })
   }
 
   save() {
@@ -174,7 +177,7 @@ class TimelineElement extends React.Component {
       })
     }  
 
-    if (this.state.img && this.state.newImg != this.state.img) {
+    if (this.state.newImg != this.state.img) {
       this.setState({
         img: this.state.newImg,
       })
@@ -183,8 +186,6 @@ class TimelineElement extends React.Component {
   }
 
   render() {
-    console.log(this.state.view);
-    console.log(this.state.img === undefined);
     return(
         <VerticalTimelineElement
           className="vertical-timeline-element--work"
@@ -192,8 +193,9 @@ class TimelineElement extends React.Component {
           iconStyle={{ background: '#553E4E', color: '#fff' }}
           contentStyle={{background: "#fff"}}
           id="check"
-          date={this.state.date}
-          dateClassName="date"
+          // date={this.state.date}
+          // dateClassName="date"
+          style={{display: !this.state.deleted ? "block" : "none"}}
         >
         {/* For the element in the timeline on the main page */}
         <Container fluid> 
@@ -211,14 +213,13 @@ class TimelineElement extends React.Component {
 
         <Container fluid>
           <Row>
-            <Col xs={this.state.img === undefined ? "0" : "6"}
-                          style={{display: this.state.img === undefined ? 'none' : 'block',
-                                  float: this.state.img === undefined ? 'none' : 'left'}}
-                          >
+            <Col 
+              style={{display: this.state.img === undefined ? 'none' : 'block',
+                      float: this.state.img === undefined ? 'none' : 'left'}}>
               <div className="text-center"><Image src={this.state.img} alt="" rounded fluid></Image></div>
             </Col>
 
-            <Col xs={this.state.img === undefined ? "12" : "6"} className="desc-container">
+            <Col className="desc-container">
               <Row style={{display: this.state.date ? "block" : "none"}}>Date</Row>
               <Row><span className="event-text" >{this.state.date}</span></Row>
               <Row><TaggedElements title="People" info={this.state.people} color=""></TaggedElements></Row>
@@ -306,7 +307,8 @@ class App extends React.Component {
           title="test reuse" 
           date={"2021-08-24"}
           tags={tags}
-          img="https://image.shutterstock.com/image-vector/smile-icon-vector-face-emoticon-260nw-1721368459.jpg" desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
+          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident"
+          >
         </TimelineElement>
         
         <TimelineElement 

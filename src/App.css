@@ -1,44 +1,57 @@
-
-
 body {
-  background-color: #EBD8D0 !important;
-}
+    background-color: #EBD8D0 !important;
+  }
+  
+  .badge.bg-primary {
+    background-color: #6B9080 !important;
+  }
+  
+  .form.control {
+    background-color: #FFFFFF !important;
+  }
+  
+  .desc-container {
+    font-size: 100% !important;
+    font-weight: bold !important;  
+  }
+  
+  .event-text {
+    font-size: 95% !important;
+    line-height: 130% !important;
+    font-weight: normal !important;
+    padding: 0% !important;
+    margin: 0% !important;
+  }
+  
+  .event-info {
+    font-family: 'Hind', sans-serif;
+  }
+  
+  .date {
+    color: #FFFFFF; 
+    text-shadow:  1px 1px 2px #000000;
+    font-size: larger !important;
+  }
+ 
+  #tagged {
+    padding: 0% !important;
+    margin: 0% !important;
+  }
 
-.badge.bg-primary {
-  background-color: #6B9080 !important;
-}
+  #add-button {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+    width: 65px;
+    height: 65px;
+    background-color: #6B9080 !important;
+    outline-color: #6B9080 !important;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.form.control {
-  background-color: #FFFFFF !important;
-}
-
-.desc-container {
-  font-size: 100% !important;
-  font-weight: bold !important;  
-}
-
-.event-text {
-  font-size: 95% !important;
-  line-height: 130% !important;
-  font-weight: normal !important;
-  padding: 0% !important;
-  margin: 0% !important;
-}
-
-.event-info {
-  font-family: 'Hind', sans-serif;
-}
-
-.date {
-  color: #FFFFFF; 
-  text-shadow:  1px 1px 2px #000000;
-  font-size: larger !important;
-}
-
-.modal {
-}
-#tagged {
-  padding: 0% !important;
-  margin: 0% !important;
-}
-
+  .bi-plus-lg {
+    font-size: 40px;
+  }

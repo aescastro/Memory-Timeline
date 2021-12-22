@@ -297,38 +297,33 @@ class TimelineElement extends React.Component {
 
 class App extends React.Component {
 
-  addMemory() {
-
-  }
-
   render() {
     var tags = ["food", "vacation", "food"];
     
     return (
-      <Container>
-        <VerticalTimeline>
-          <TimelineElement 
-            title="test reuse" 
-            date={"2021-08-24"}
-            tags={tags}
-            img="https://ih1.redbubble.net/image.1447321798.6086/st,small,845x845-pad,1000x1000,f8f8f8.jpg"
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident"
-            >
-          </TimelineElement>
-          
-          <TimelineElement 
-            title="test reuse" 
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
-          </TimelineElement>
 
-          <DummyElement></DummyElement>
-          <DummyElement></DummyElement>
-          <DummyElement></DummyElement>
-          <DummyElement></DummyElement>
-          
-        </VerticalTimeline>
-        <Button id="add-button"><span className="bi bi-plus-lg"></span></Button>
-      </Container>
+      <VerticalTimeline>
+        <TimelineElement 
+          title="test reuse" 
+          date={"2021-08-24"}
+          tags={tags}
+          img="https://ih1.redbubble.net/image.1447321798.6086/st,small,845x845-pad,1000x1000,f8f8f8.jpg"
+          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident"
+          >
+        </TimelineElement>
+        
+        <TimelineElement 
+          title="test reuse" 
+          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, , sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident">
+        </TimelineElement>
+
+        <DummyElement></DummyElement>
+        <DummyElement></DummyElement>
+        <DummyElement></DummyElement>
+        <DummyElement></DummyElement>
+        
+      </VerticalTimeline>
+        
     );
  }
 }
